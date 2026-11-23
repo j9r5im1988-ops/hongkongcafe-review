@@ -270,7 +270,7 @@
       <span class="step-num">4</span>
       <h2 id="s4">分享去更多平台<span class="en">Share the love</span></h2>
     </div>
-    <p class="step-sub">用返你頭先揀嘅菜式，一鍵寫埋小紅書筆記同朋友圈文案，複製咗去貼就得。</p>
+    <p class="step-sub">用返你頭先揀嘅菜式，一鍵寫埋小紅書筆記同朋友圈文案，複製咗去貼就得。文案會跟返第 2 步揀嘅語言（中文／English）。</p>
     <div class="draft-actions" style="margin-top:0">
       <button type="button" class="btn btn-xhs-gen" id="btnXhs">📕 寫小紅書筆記</button>
       <button type="button" class="btn btn-moments-gen" id="btnMoments">💬 寫朋友圈文案</button>
@@ -583,6 +583,31 @@
     "打卡羅蘭崗寶藏茶餐廳✅ {DISHES}樣樣都啱食，{VIBE}，值得專程嚟一轉。📍 香港茶餐廳 Hong Kong Cafe"
   ];
 
+  var XHS_TITLES_EN = [
+    "Found a Hong Kong cafe gem in Rowland Heights!",
+    "Real Hong Kong flavors in LA — this cha chaan teng is the real deal",
+    "Rowland Heights eats | The Hong Kong cafe on Colima you need to try",
+    "My new go-to Hong Kong cafe in the SGV area",
+    "Fast, tasty, and so nostalgic — Hong Kong cafe lunch done right"
+  ];
+  var XHS_OPENERS_EN = [
+    "Finally checked out this Hong Kong-style cafe in Rowland Heights — the nostalgic HK decor hits you the moment you walk in 🇭🇰",
+    "A friend kept recommending this place and it did not disappoint!",
+    "Whenever I crave real Hong Kong flavors, this is where I end up. Easy to find on Colima Rd and parking is a breeze 🚗"
+  ];
+  var XHS_CLOSERS_EN = [
+    "Generous portions, fair prices — already on my come-back list. If you're nearby, go!",
+    "Food comes out crazy fast, so it's perfect for a workday lunch too 💼",
+    "The kind of spot you want to bring family and friends to. Highly recommend for HK food lovers!"
+  ];
+  var XHS_TAGS_EN = "#RowlandHeights #LAFood #LosAngelesEats #HongKongCafe #ChaChaanTeng #FoodieLA #SGVEats";
+  var MOMENTS_EN = [
+    "Tried Hong Kong Cafe in Rowland Heights today — {DISHES} were all so good, {VIBE}. Highly recommend! 📍 Hong Kong Cafe, 17521 Colima Rd",
+    "Hong Kong flavors done right 😋 {DISHES}, {VIBE}. Bringing the family next time. 📍 Hong Kong Cafe, Rowland Heights",
+    "Little midday treat ✨ Authentic HK cafe food in Rowland Heights: {DISHES} — {VIBE}! 📍 Hong Kong Cafe",
+    "Checked in at a hidden-gem cha chaan teng ✅ {DISHES} all hit the spot, {VIBE}. Worth the trip. 📍 Hong Kong Cafe, Rowland Heights"
+  ];
+
   function selectedList(store){
     return Object.keys(store).map(function(k){ return store[k]; });
   }
@@ -591,6 +616,28 @@
     var dishes = shuffle(selectedList(selectedDishes)).slice(0, 4);
     var vibes = selectedList(selectedVibes);
     var lines = [];
+    if(lang === "en"){
+      lines.push("📕 " + pick(XHS_TITLES_EN));
+      lines.push("");
+      lines.push(pick(XHS_OPENERS_EN));
+      lines.push("");
+      if(dishes.length){
+        dishes.forEach(function(d){
+          lines.push("✔️ " + d.label + ": " + d.en);
+        });
+      } else {
+        lines.push("✔️ You really can't go wrong with the signatures — everything came out fresh, hot, and full of authentic Hong Kong cafe flavor");
+      }
+      if(vibes.length){
+        lines.push("");
+        lines.push("💛 " + vibes.map(function(v){ return v.en; }).join("; "));
+      }
+      lines.push("");
+      lines.push(pick(XHS_CLOSERS_EN));
+      lines.push("");
+      lines.push(XHS_TAGS_EN);
+      return lines.join("\n");
+    }
     lines.push("📕 " + pick(XHS_TITLES));
     lines.push("");
     lines.push(pick(XHS_OPENERS));
@@ -614,8 +661,14 @@
   }
 
   function genMoments(){
-    var dishes = selectedList(selectedDishes).map(function(d){ return d.name; });
     var vibes = selectedList(selectedVibes);
+    if(lang === "en"){
+      var dishEn = selectedList(selectedDishes).map(function(d){ return d.label; });
+      var dishTextEn = dishEn.length ? dishEn.slice(0, 3).join(", ") : "the signature dishes";
+      var vibeTextEn = vibes.length ? vibes[0].en : "the staff were warm and welcoming";
+      return pick(MOMENTS_EN).replace("{DISHES}", dishTextEn).replace("{VIBE}", vibeTextEn);
+    }
+    var dishes = selectedList(selectedDishes).map(function(d){ return d.name; });
     var dishText = dishes.length ? dishes.slice(0, 3).join("、") : "幾款招牌菜";
     var vibeText = vibes.length ? vibes[0].zh : "服務親切、出餐又快";
     var tpl = pick(MOMENTS);
