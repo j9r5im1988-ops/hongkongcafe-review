@@ -159,6 +159,16 @@
   .g-mark{font-family:"Quicksand",sans-serif;font-weight:700}
   .g-mark .b{color:#4285F4}.g-mark .r{color:#EA4335}.g-mark .y{color:#D9A400}.g-mark .g{color:#34A853}
 
+  .btn-xhs-gen{background:#FF2442;color:#fff;border:0;box-shadow:0 3px 0 #C21330}
+  .btn-xhs-gen:active{transform:translateY(2px);box-shadow:0 1px 0 #C21330}
+  .btn-moments-gen{background:#07C160;color:#fff;border:0;box-shadow:0 3px 0 #059A4C}
+  .btn-moments-gen:active{transform:translateY(2px);box-shadow:0 1px 0 #059A4C}
+  .btn-xhs{background:#FF2442;border:2px solid #FF2442;color:#fff;box-shadow:0 3px 0 #C21330;font-size:1.08rem;min-height:58px}
+  .btn-ig{background:linear-gradient(45deg,#F09433,#E6683C,#DC2743,#CC2366,#BC1888);border:0;color:#fff;box-shadow:0 3px 0 #8E1A5C;font-size:1.08rem;min-height:58px}
+  .btn-fb{background:#1877F2;border:2px solid #1877F2;color:#fff;box-shadow:0 3px 0 #0F5AC4;font-size:1.08rem;min-height:58px}
+  .btn-xhs:active,.btn-ig:active,.btn-fb:active{transform:scale(.99)}
+  .post-btns .sub{display:block;font-size:.74rem;font-weight:500;opacity:.8;font-family:"Quicksand",sans-serif;letter-spacing:.03em}
+
   footer{
     text-align:center;margin-top:24px;font-size:.83rem;color:var(--brown-faint);line-height:1.7;padding:0 8px;
   }
@@ -250,6 +260,38 @@
       </a>
       <a class="btn btn-yelp" href="https://www.yelp.com/writeareview/biz/hong-kong-cafe-rowland-hts-2" target="_blank" rel="noopener">
         <span>去 Yelp 發表<span class="sub">Review on Yelp</span></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- STEP 4 -->
+  <section class="card" aria-labelledby="s4">
+    <div class="step-head">
+      <span class="step-num">4</span>
+      <h2 id="s4">分享去更多平台<span class="en">Share the love</span></h2>
+    </div>
+    <p class="step-sub">用返你頭先揀嘅菜式，一鍵寫埋小紅書筆記同朋友圈文案，複製咗去貼就得。</p>
+    <div class="draft-actions" style="margin-top:0">
+      <button type="button" class="btn btn-xhs-gen" id="btnXhs">📕 寫小紅書筆記</button>
+      <button type="button" class="btn btn-moments-gen" id="btnMoments">💬 寫朋友圈文案</button>
+    </div>
+    <div class="draft-box" id="shareBox">
+      <div class="draft" id="shareText"></div>
+      <div class="draft-actions">
+        <button type="button" class="btn btn-again" id="btnShareAgain">🔀 換一條 Shuffle</button>
+        <button type="button" class="btn btn-copy" id="btnShareCopy">📋 複製全文 Copy</button>
+      </div>
+    </div>
+    <p class="group-label">📲 去其他平台 Open</p>
+    <div class="post-btns">
+      <a class="btn btn-xhs" href="https://www.xiaohongshu.com" target="_blank" rel="noopener">
+        <span>去小紅書發筆記<span class="sub">Post on Xiaohongshu</span></span>
+      </a>
+      <a class="btn btn-ig" href="https://www.instagram.com/hongkongcafe_" target="_blank" rel="noopener">
+        <span>去 Instagram 打卡<span class="sub">Tag us on Instagram @hongkongcafe_</span></span>
+      </a>
+      <a class="btn btn-fb" href="https://www.facebook.com/search/top?q=Hong%20Kong%20Cafe%20Rowland%20Heights" target="_blank" rel="noopener">
+        <span>去 Facebook 留好評<span class="sub">Review on Facebook</span></span>
       </a>
     </div>
   </section>
@@ -514,6 +556,119 @@
   }
   langEn.addEventListener("click", function(){ setLang("en"); });
   langZh.addEventListener("click", function(){ setLang("zh"); });
+
+  /* ---------- Step 4: Xiaohongshu / Moments generators ---------- */
+  var XHS_TITLES = [
+    "羅蘭崗這家港式茶餐廳，我願稱之為寶藏小店！",
+    "在LA吃到了香港的味道😭 這家茶餐廳太正了",
+    "Rowland Heights美食｜藏在Colima的港式茶餐廳",
+    "洛杉磯港式茶餐廳天花板？吃完這家我信了",
+    "打工人午餐新據點！羅蘭崗這家茶餐廳出餐快又好吃"
+  ];
+  var XHS_OPENERS = [
+    "終於來打卡這家藏在Rowland Heights的香港茶餐廳，一進門就是熟悉的港式裝修，瞬間夢回香港🇭🇰",
+    "被朋友安利了無數次，今天終於來試這家港式茶餐廳，果然名不虛傳！",
+    "想念香港味道的時候，我就會開車來這家，Colima Rd上超好找，停車也方便🚗"
+  ];
+  var XHS_CLOSERS = [
+    "份量足、價錢合理，已經列入我的回訪清單，住附近的姐妹可以衝！",
+    "出餐快到驚人，午市來吃也完全不趕時間，上班族友好💼",
+    "是會想帶家人朋友再來的小店，推薦給所有愛港式美食的人～"
+  ];
+  var XHS_TAGS = "#羅蘭崗美食 #洛杉磯美食 #港式茶餐廳 #香港茶餐廳 #LA探店 #RowlandHeights #LA美食";
+  var MOMENTS = [
+    "今日去咗 Rowland Heights 呢間香港茶餐廳，{DISHES}都好正，{VIBE}，推介俾大家！📍 Hong Kong Cafe, 17521 Colima Rd",
+    "想食港式嘢，呢間冇得輸😋 {DISHES}，{VIBE}，下次要帶埋屋企人嚟。📍 香港茶餐廳 Hong Kong Cafe",
+    "收工小確幸✨ 喺羅蘭崗食到正宗港味：{DISHES}，{VIBE}！📍 Hong Kong Cafe, Rowland Heights",
+    "打卡羅蘭崗寶藏茶餐廳✅ {DISHES}樣樣都啱食，{VIBE}，值得專程嚟一轉。📍 香港茶餐廳 Hong Kong Cafe"
+  ];
+
+  function selectedList(store){
+    return Object.keys(store).map(function(k){ return store[k]; });
+  }
+
+  function genXhs(){
+    var dishes = shuffle(selectedList(selectedDishes)).slice(0, 4);
+    var vibes = selectedList(selectedVibes);
+    var lines = [];
+    lines.push("📕 " + pick(XHS_TITLES));
+    lines.push("");
+    lines.push(pick(XHS_OPENERS));
+    lines.push("");
+    if(dishes.length){
+      dishes.forEach(function(d){
+        lines.push("✔️ " + d.name + "：" + d.zh);
+      });
+    } else {
+      lines.push("✔️ 招牌菜隨便點都不踩雷，每樣都新鮮熱辣，好有香港茶餐廳風味");
+    }
+    if(vibes.length){
+      lines.push("");
+      lines.push("💛 " + vibes.map(function(v){ return v.zh; }).join("；"));
+    }
+    lines.push("");
+    lines.push(pick(XHS_CLOSERS));
+    lines.push("");
+    lines.push(XHS_TAGS);
+    return lines.join("\n");
+  }
+
+  function genMoments(){
+    var dishes = selectedList(selectedDishes).map(function(d){ return d.name; });
+    var vibes = selectedList(selectedVibes);
+    var dishText = dishes.length ? dishes.slice(0, 3).join("、") : "幾款招牌菜";
+    var vibeText = vibes.length ? vibes[0].zh : "服務親切、出餐又快";
+    var tpl = pick(MOMENTS);
+    return tpl.replace("{DISHES}", dishText).replace("{VIBE}", vibeText);
+  }
+
+  var shareBox = document.getElementById("shareBox");
+  var shareText = document.getElementById("shareText");
+  var shareMode = "xhs";
+  function showShare(){
+    shareText.textContent = (shareMode === "xhs") ? genXhs() : genMoments();
+    shareBox.classList.add("show");
+    var b = document.getElementById("btnShareCopy");
+    b.classList.remove("copied");
+    b.innerHTML = "📋 複製全文 Copy";
+  }
+  document.getElementById("btnXhs").addEventListener("click", function(){
+    shareMode = "xhs";
+    showShare();
+    shareBox.scrollIntoView({behavior:"smooth", block:"nearest"});
+  });
+  document.getElementById("btnMoments").addEventListener("click", function(){
+    shareMode = "moments";
+    showShare();
+    shareBox.scrollIntoView({behavior:"smooth", block:"nearest"});
+  });
+  document.getElementById("btnShareAgain").addEventListener("click", showShare);
+  document.getElementById("btnShareCopy").addEventListener("click", function(){
+    var btn = this;
+    var text = shareText.textContent;
+    function done(){
+      btn.classList.add("copied");
+      btn.innerHTML = "✅ 已複製 Copied!";
+      showToast(shareMode === "xhs" ? "✅ 已複製！去小紅書貼上啦" : "✅ 已複製！去微信朋友圈貼上啦");
+      setTimeout(function(){
+        btn.classList.remove("copied");
+        btn.innerHTML = "📋 複製全文 Copy";
+      }, 2600);
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done).catch(function(){ fb2(); });
+    } else { fb2(); }
+    function fb2(){
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); done(); }
+      catch(e){ showToast("複製唔到 Copy failed — 請長㩒文字手動複製"); }
+      document.body.removeChild(ta);
+    }
+  });
 
   buildChips("dishChips", DISHES, selectedDishes, false);
   buildChips("vibeChips", VIBES, selectedVibes, true);
